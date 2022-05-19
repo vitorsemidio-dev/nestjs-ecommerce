@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
+import { APP_FILTER } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { HttpExceptionFilter } from './core/common/http-exception.filter';
 import { Produto } from './modules/produtos/entities/produto.entity';
 import { ProdutosModule } from './modules/produtos/produtos.module';
 import { Promocoes } from './modules/promocoes/entities/promocoes.entity';
@@ -29,6 +31,12 @@ dotenv.config();
     PromocoesModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    },
+    AppService,
+  ],
 })
 export class AppModule {}

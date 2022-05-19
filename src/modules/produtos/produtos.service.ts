@@ -8,11 +8,14 @@ export class ProdutosService {
   constructor(private readonly repository: ProdutosRepository) {}
   async create(createProdutoDto: CreateProdutoDto) {
     const product = this.repository.create(createProdutoDto);
+
     return await this.repository.save(product);
   }
 
   async findAll() {
-    return await this.repository.find();
+    return await this.repository.find({
+      relations: ['promocao'],
+    });
   }
 
   async findOne(id: Uuid) {

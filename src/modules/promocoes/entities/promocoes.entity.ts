@@ -1,5 +1,6 @@
 import { BaseEntity } from 'src/core/common/base.entity';
-import { Column, Entity } from 'typeorm';
+import { Produto } from 'src/modules/produtos/entities/produto.entity';
+import { Column, Entity, JoinColumn, OneToMany } from 'typeorm';
 
 @Entity()
 export class Promocoes extends BaseEntity {
@@ -17,4 +18,8 @@ export class Promocoes extends BaseEntity {
     type: 'float',
   })
   porY?: number;
+
+  @OneToMany(() => Produto, (produto) => produto.promocao)
+  @JoinColumn({ name: 'produto_id' })
+  produtos: Produto[];
 }

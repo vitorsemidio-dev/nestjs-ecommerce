@@ -12,11 +12,15 @@ export class PromocoesService {
   }
 
   async findAll() {
-    return await this.promocoesRepository.find();
+    return await this.promocoesRepository.find({
+      relations: ['produtos'],
+    });
   }
 
   async findOne(id: Uuid) {
-    return await this.promocoesRepository.findOne(id);
+    return await this.promocoesRepository.findOne(id, {
+      relations: ['produtos'],
+    });
   }
 
   async update(id: Uuid, updatePromocaoDto: UpdatePromocaoDto) {
@@ -24,6 +28,15 @@ export class PromocoesService {
   }
 
   async remove(id: Uuid) {
+    const hasProdutoWithPromocao = await this.promocoesRepository.findOne({
+      where: { id },
+      relations: ['produtos'],
+    });
+    if (hasProdutoWithPromocao.produtos.length > 0) {
+      throw new Error(
+        'Não é possível remover uma promoção que possui produtos',
+      );
+    }
     return await this.promocoesRepository.softRemove({ id });
   }
 }

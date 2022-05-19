@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProductsModule } from './modules/products/products.module';
@@ -17,6 +18,7 @@ dotenv.config();
       database: process.env.TYPEORM_DATABASE,
       synchronize: true,
       autoLoadEntities: true,
+      namingStrategy: new SnakeNamingStrategy(),
     }),
     ProductsModule,
   ],

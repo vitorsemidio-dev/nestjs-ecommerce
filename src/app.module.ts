@@ -4,7 +4,7 @@ import * as dotenv from 'dotenv';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ProductsModule } from './modules/products/products.module';
+import { ProdutosModule } from './modules/produtos/produtos.module';
 dotenv.config();
 
 @Module({
@@ -20,7 +20,7 @@ dotenv.config();
       autoLoadEntities: true,
       namingStrategy: new SnakeNamingStrategy(),
     }),
-    ProductsModule,
+    ProdutosModule,
   ],
   controllers: [AppController],
   providers: [AppService],

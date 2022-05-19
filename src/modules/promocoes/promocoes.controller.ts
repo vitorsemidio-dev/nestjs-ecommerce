@@ -16,27 +16,30 @@ export class PromocoesController {
   constructor(private readonly promocoesService: PromocoesService) {}
 
   @Post()
-  create(@Body() createPromocoeDto: CreatePromocaoDto) {
-    return this.promocoesService.create(createPromocoeDto);
+  async create(@Body() createPromocoeDto: CreatePromocaoDto) {
+    return await this.promocoesService.create(createPromocoeDto);
   }
 
   @Get()
-  findAll() {
-    return this.promocoesService.findAll();
+  async findAll() {
+    return await this.promocoesService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: Uuid) {
-    return this.promocoesService.findOne(id);
+  async findOne(@Param('id') id: Uuid) {
+    return await this.promocoesService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: Uuid, @Body() updatePromocoeDto: UpdatePromocaoDto) {
-    return this.promocoesService.update(id, updatePromocoeDto);
+  async update(
+    @Param('id') id: Uuid,
+    @Body() updatePromocoeDto: UpdatePromocaoDto,
+  ) {
+    return await this.promocoesService.update(id, updatePromocoeDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: Uuid) {
-    return this.promocoesService.remove(id);
+  async remove(@Param('id') id: Uuid) {
+    return await this.promocoesService.remove(id);
   }
 }

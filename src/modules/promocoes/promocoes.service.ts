@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreatePromocaoDto } from './dto/create-promocoe.dto';
 import { UpdatePromocaoDto } from './dto/update-promocoe.dto';
 import { PromocoesRepository } from './promocoes.repository';
@@ -33,7 +33,7 @@ export class PromocoesService {
       relations: ['produtos'],
     });
     if (hasProdutoWithPromocao.produtos.length > 0) {
-      throw new Error(
+      throw new BadRequestException(
         'Não é possível remover uma promoção que possui produtos',
       );
     }

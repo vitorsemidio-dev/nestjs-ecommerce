@@ -7,7 +7,7 @@ export class Produto extends BaseEntity {
   nome: string;
 
   @Column({
-    type: 'decimal',
+    type: 'float',
   })
   preco: number;
 }

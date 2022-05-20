@@ -5,6 +5,9 @@ import { Column, Entity, JoinColumn, OneToMany } from 'typeorm';
 @Entity()
 export class Promocoes extends BaseEntity {
   @Column({ nullable: true })
+  nome: string;
+
+  @Column({ nullable: true })
   leveX?: number;
 
   @Column({ nullable: true })
